@@ -1,0 +1,503 @@
+-- CREATE DATABASE website;
+-- SHOW DATABASES;
+-- CREATE TABLE table_name (column1 type, column2 type, column3 type);
+-- INSERT INTO table_name (colum1, column2, column3, column4)
+-- 		VALUES(value1, value2, value3, value4); order of values should be same as order of columns 
+-- USE website;
+-- CREATE TABLE staff (id INT, first_name VARCHAR(50), last_name VARCHAR(50), email VARCHAR(50));
+-- SHOW TABLES;
+-- INSERT INTO staff (id, first_name, last_name, email)
+-- 	VALUES(2, 'Michael', 'Smith', 'mike.smith@aol.com');
+-- USE website;
+-- INSERT INTO staff (id, first_name, last_name, email) VALUES
+-- 					(4, 'Michael', 'Bay', 'mike.bay@aol.com'),
+--                     (5, 'Hello', 'Mari', 'hele.mari@yahoo.com'),
+--                     (6, 'James', 'Joyce', 'j.joyce@gmail.com');
+-- INSERT INTO staff (id, first_name, last_name, email) 
+--   	VALUES(8, 'James', 'Baker', 'jamesBaker23@gmail.com');
+-- SELECT first_name FROM staff;
+-- SELECT first_name, last_name, email FROM staff;
+-- SELECT * FROM staff;
+-- CREATE DATABASE store;
+-- USE store;
+-- CREATE TABLE vegetables (name VARCHAR(50), weight INT, price DOUBLE);
+-- INSERT INTO vegetables (name, weight, price) VALUES	
+-- 	('onion', 200, 1.93),
+-- 	('Potato', 1000, 2.4),
+-- 	('Tomato', 400, 3.95);
+-- INSERT INTO vegetables (name, weight, price) VALUES ('Tomato', 400, 3.95);
+-- INSERT INTO vegetables (name, weight, price) VALUES ('Potato', 1000, 2.4); also possible
+-- SELECT * FROM vegetables;
+-- DISTINCT means ask only unique info, no duplicates 
+-- SELECT DISTINCT first_name FROM staff;
+-- SELECT DISTINCT first_name, last_name FROM staff;
+-- SELECT * FROM staff WHERE first_name='James';
+-- SELECT * FROM staff WHERE id>3;
+-- SELECT * FROM staff WHERE id<3;
+-- SELECT * FROM staff WHERE id>=3;
+-- SELECT * FROM staff WHERE id!=3; or use SELECT * FROM staff WHERE id <> 3;
+-- SELECT * FROM staff WHERE id BETWEEN 2 AND 4;
+-- SELECT * FROM staff WHERE first_name IN ('James', 'Mary');
+-- SELECT * FROM staff WHERE first_name NOT IN ('James', 'Mary');
+-- SELECT * FROM staff WHERE email LIKE '%gmail.com'; % zero, one or multiple characters , underscore sign means exactly one character
+-- SELECT * FROM staff WHERE email NOT LIKE 'm___.%@%.com';
+-- SELECT * FROM staff WHERE last_name is NOT NULL;
+-- SELECT * FROM staff WHERE last_name is NULL;
+--  to sort the data in the given table for final display as we wish we have to add ORDER BY
+--  SELECT * FROM staff ORDER BY first_name;
+-- SELECT * FROM staff ORDER BY first_name, last_name;
+-- SELECT * FROM staff ORDER BY last_name;
+-- SELECT * FROM staff ORDER BY last_name DESC; DESC means descending 
+-- INSERT INTO vegetables (name, weight, price) VALUES ('Lettuce', 100, 1.65);
+-- INSERT INTO vegetables (name, weight, price) VALUES ('Carrot', 350, 1.9);
+-- INSERT INTO vegetables (name, weight, price) VALUES ('Pumpkin', 700, 2.5);
+-- SELECT * FROM vegetables WHERE price BETWEEN 2 AND 3;
+-- SELECT * FROM vegetables WHERE weight<400;
+-- select all vegetables with name that end with letter o
+-- SELECT * FROM vegetables WHERE name LIKE '%o' ORDER BY name DESC;
+-- INSERT INTO staff (id, first_name, last_name, email) VALUES (11, 'Evelin', 'Adams', 'not_an_email');
+-- UPDATE table_name SET column1 = value, column2 = value WHERE condition;
+-- SET SQL_SAFE_UPDATES = 0;
+-- UPDATE staff SET email = 'for.michael@gmail.com' WHERE id = 4;
+-- UPDATE staff SET last_name = 'Flores', email = 'ashley.loves.flowers@aol.com' WHERE id = 9;
+-- while using UPDATE u need to mention WHERE or u get unexpected results , WHERE first_name = 'James'; what happens if 2 people have first name James 
+-- DELETE FROM table_name WHERE condition;
+-- DELETE FROM staff WHERE id=8;
+-- DELETE FROM staff WHERE email NOT LIKE '%@%.%';
+-- ALTER TABLE staff ADD salary DOUBLE; 
+-- UPDATE staff SET salary=80500.00 WHERE id=1;
+-- UPDATE staff SET salary=42000.00 WHERE id=2;
+-- UPDATE staff SET salary=65000.00 WHERE id=3;
+-- UPDATE staff SET salary=72000.00 WHERE id=4;
+-- UPDATE staff SET salary=94800.00 WHERE id=5;
+-- UPDATE staff SET salary=58000.00 WHERE id=6;
+-- UPDATE staff SET salary=70000.00 WHERE id=7;
+-- UPDATE staff SET salary=70000.00 WHERE id=9;
+-- UPDATE staff SET salary=70000.00 WHERE id=10;
+-- SELECT MIN(salary) FROM staff;
+-- UPDATE staff SET id = 3 WHERE last_name='Smith';
+-- SELECT MAX(first_name) FROM staff;
+-- SELECT SUM(salary) FROM staff;
+-- SELECT AVG(salary) FROM staff;
+-- SELECT COUNT(last_name) FROM staff;
+-- count total number of rows in the table
+-- SELECT COUNT(*) FROM staff;
+-- ALTER TABLE staff ADD department VARCHAR(255);
+-- UPDATE staff SET department='Software Development' WHERE id=1;
+-- UPDATE staff SET department='Human Resources' WHERE id=2;
+-- UPDATE staff SET department='Software Development' WHERE id=3;
+-- UPDATE staff SET department='Finance' WHERE id=4;
+-- UPDATE staff SET department='Software Development' WHERE id=5;
+-- UPDATE staff SET department='Software Development' WHERE id=6;
+-- UPDATE staff SET department='Finance' WHERE id=7;
+-- UPDATE staff SET department='Offshore' WHERE id=9;
+-- UPDATE staff SET department='Requirements' WHERE id=10;
+-- ccount how many employees in each department 
+-- SELECT column1, column2 FROM table_name GROUP_BY column1, column2;
+-- SELECT department, COUNT(department) FROM staff GROUP BY department;
+-- get min salary, max salary average salary sum of salaries of each department
+-- SELECT department, MIN(salary), MAX(salary), AVG(salary), SUM(salary) FROM staff GROUP BY department;
+-- SELECT * FROM table_name WHERE condition1 AND condition2 AND condition3;
+-- SELECT * FROM staff WHERE id >= 4 AND last_name IS NOT NULL AND department='Software Development';
+-- SELECT * FROM staff WHERE first_name='James' OR salary>70000;
+-- SELECT * FROM staff WHERE NOT department='Software Development';
+-- SELECT * FROM staff WHERE salary>70000 AND (first_name='James' OR first_name='Ashley');
+-- the where caluse does not work with the grouped data so use HAVING
+-- SELECT department, AVG(salary) FROM staff GROUP BY department HAVING AVG(salary) > 50000 ORDER BY department;
+-- SELECT department, SUM(salary) FROM staff GROUP BY department WITH ROLLUP; sums up all above values 
+-- get only first employee but not all employees working in software development department, limit specifies how many rows we want to get in return
+-- SELECT * FROM staff WHERE department='Software Development' ORDER BY salary DESC LIMIT 20;
+-- SELECT * FROM vegetables WHERE weight>=350;
+-- SELECT AVG(price) FROM vegetables;
+-- SELECT MIN(price), MAX(price) FROM vegetables;
+-- SELECT * FROM vegetables WHERE weight<1000;
+-- aggregate functions i.e max min and average can only be used with select statements , if u use max function after where as below they wont work properly
+-- DELETE FROM vegetables WHERE weight = MAX(weight);
+-- DELETE FROM vegetables ORDER BY weight DESC LIMIT 1;
+-- with ALTER TABLE we can add columns and also modify and delete them 
+-- ALTER TABLE table_name MODIFY column_name new_type; modify to change the data type of a column
+-- ALTER TABLE staff MODIFY department TEXT;
+-- ALTER TABLE staff CHANGE department Department TEXT;
+-- to delete column use DROP
+-- ALTER TABLE staff DROP Department;
+-- SELECT * FROM staff;
+-- to delete a table DROP TABLE staff;
+-- to delete data base DROP DATABASE db_name; DROP DATABASE website;
+-- ALTER TABLE vegetables ADD price_category VARCHAR(50); or ALTER TABLE vegetables ADD COLUMN price_category VARCHAR(50);
+-- UPDATE vegetables SET price_category='expensive' WHERE price>2;
+-- UPDATE vegetables SET price_category='cheap' WHERE price<=2;
+-- SELECT price_category, COUNT(price_category) FROM vegetables GROUP BY price_category; or SELECT price_category, COUNT(*) FROM vegetables GROUP BY price_category;
+-- 1:1 1:MANY MANY:MANY
+-- table with products has product id, and this product id should be unique hence this column is the primary key irrespective of whether its 1st or last column or in between
+-- 1: MANY has top priority, MANY : MANY has second priority and 1:1 has 3rd priority when it comes to usage 
+-- inner join - it selects records that have matching values in both tables 
+-- if we want to het info from column first_name of first table and from column comment_id of second table
+-- SELECT columns FROM table1 INNER JOIN table2 ON table1.column = table2.column
+-- SELECT users.first_name, comments.comment_id FROM users INNER JOIN comments ON users.user_id = comments.user_id;
+-- Average price by brand Order by alphabetical order by brand , 
+-- SHOW TABLES
+-- calculate average price for every brand and results have to be ordered by brand in alphabetical order moreover data has to be displayed only to those brands that have
+-- atleast 1 model of shoes 
+-- SELECT brands.name, AVG(shoes.price) FROM brands INNER JOIN shoes ON brands.id = shoes.brand_id GROUP BY brands.name ORDER BY brands.name;
+-- first we need names of brands, so SELECT brands.name, we need average price for every brand and prices are present in shoes table  AVG(shoes.price)
+-- and FROM brands since we need info from table called shoes INNER JOIN shoes we also need to specify from which two columns we r going to relate the tables 
+-- ON brands.id = shoes.brand_id finally GROUP BY brands.name ORDER BY brands.name;
+-- LEFT JOIN adds all data from left table or the first table and then from the second table which is the right table the values that correspond with the left table will be chosen
+-- if some values are missing then null value will be added to the final table 
+-- SELECT columns FROM table1 LEFT JOIN table2 ON table1.column = table2.column
+-- we specify the columns we want to get SELECT columns FROM table1 , then LEFT JOIN table2 ON, then we specify the primary key and the foreign key which we use to relate tables to each other table1.column = table2.column
+-- SELECT users.first_name, comments.comment_id FROM users LEFT JOIN comments ON users.user_id = comments.user_id;
+-- USE website_b;
+-- SELECT users.first_name, comments.comment_id FROM users LEFT JOIN comments ON users.user_id = comments.user_id;
+-- USE store_b;
+-- SELECT brands.name, COUNT(shoes.name) FROM brands LEFT JOIN shoes ON brands.id = shoes.brand_id GROUP BY brands.name; if u dont use GROUP BY here then u get error
+-- RIGHT JOIN its similar to left join , right join takes all the information from the right table and then looks for corresponding values in the left table 
+-- SELECT users.first_name, comments.comment_id FROM users RIGHT JOIN comments ON users.user_id = comments.user_id; 
+-- SELECT shoes.name, shoes.price, brands.country FROM brands RIGHT JOIN shoes ON brands.id = shoes.brand_id ORDER BY brands.country DESC;
+-- FULL JOIN and CROSS JOIN aloows us to get all data from the tables , FULL OUTER JOIN does not work in my sql but it does in postgresql
+-- SELECT columns FROM table1 FULL OUTER JOIN table2 ON table1.column = table2.column;
+-- SELECT users.first_name, comments.comment_id FROM users FULL OUTER JOIN comments ON users.user_id = comments.user_id;
+-- CROSS JOIN to get all possible combinations 
+-- USE cafe;
+-- SELECT columns FROM table1 CROSS JOIN table2;
+-- SELECT coffee.name as coffee, coffee.size, syrups.name as syrup FROM coffee CROSS JOIN syrups;
+-- with CROSS JOIN  we can also chnage the names of the columns 
+-- when u query from 2 different tables but both table have one common column name example name , the new generated table will have then 2 columns with same string name
+-- so we use ALIASES - coffee.name as coffee
+-- to make SELECT coffee.name as coffee, coffee.size, syrups.name as syrup FROM coffee CROSS JOIN syrups; shorter 
+-- SELECT c.name as coffee, c.size, s.name as syrup FROM coffee as c CROSS JOIN syrups as s;
+-- UNION
+-- SELECT columns FROM table1 UNION SELECT columns FROM table2;
+-- there are 3 requirements for union command to work correctly
+-- 1. Each SELECT statement within UNION must have the same number of columns 
+-- means if the first SELECT statement chooses 3 columns then second select statement must choose three columns aswell 
+-- 2. columns must also have similar data types 
+-- 3. The columns in each SELECT statement must also be in the same order 
+-- SELECT name, price FROM coffee UNION SELECT name, price FROM syrups;
+-- SELECT 'coffee' as type, name, price FROM coffee UNION SELECT 'syrup', name, price FROM syrups;
+-- SELECT price FROM coffee UNION SELECT price FROM syrups;
+-- when the value appears more than once the union command doesnt add it the second time, to add all values so use UNION ALL command  
+-- SELECT price FROM coffee UNION ALL SELECT price FROM syrups;
+-- SELECT SUM(price) FROM (SELECT price FROM coffee UNION ALL SELECT price FROM syrups) as prices;
+-- CREATE TABLE books1 (
+--   		name VARCHAR(255) NOT NULL,
+-- 		author VARCHAR(255) NOT NULL,
+-- 		format VARCHAR(50) DEFAULT 'hardcover',
+--  		pages INT CHECK (pages>0),
+--  		id INT NOT NULL UNIQUE AUTO_INCREMENT
+-- )
+-- CREATE TABLE books1 (
+--   		name VARCHAR(255) NOT NULL,
+-- 		author VARCHAR(255) NOT NULL,
+-- 		format VARCHAR(50) DEFAULT 'hardcover',
+--  		pages INT CHECK (pages>0),
+--  		id INT PRIMARY KEY AUTO_INCREMENT
+-- )
+-- PRIMARY KEY = NOT NULL + UNIQUE
+-- INSERT INTO books1 (name, author, format, pages, id) VALUES ('The Outsider', 'Stephen King', 'hardcover', 577, 10);
+-- DROP TABLE books; delete table 
+-- SELECT * FROM my_ete_jwt_security.books;
+-- INSERT INTO books1 (name, author, format, pages) VALUES ('Origin', 'Dan Brown', 'hardcover', 480);
+-- SELECT * FROM books1;
+-- see all constraints in a table DESCRIBE books1;
+-- DESCRIBE books1;
+-- to add a constraint example UNIQUE to a table 2 ways first delete the table recreate with UNIQUE , 
+-- once u set id unique u dont have to explicitly define it id will be generated automatically but u need to make it unique first and then add below command
+-- ALTER TABLE books1 MODIFY COLUMN id INT AUTO_INCREMENT;
+-- secondway is update info in current table ALTER TABLE
+-- UPDATE books1 SET id = 11 WHERE author = 'Delia Owens';
+-- ALTER TABLE books1 ADD CONSTRAINT u_id UNIQUE (id);
+-- when you know majority of books have the hardcover format we can set value hardcover as the default value 
+-- ALTER TABLE books1 ALTER format SET DEFAULT 'hardcover';
+-- INSERT INTO books1 (name, author, pages) VALUES ('A Man Called Ove', 'Fredrik Backman', 377);
+-- ALTER TABLE books1 ADD CHECK (pages > 0);
+-- UPDATE books1 SET pages = -10 WHERE name = 'Origin';
+-- ALTER TABLE books1 ADD CONSTRAINT PRIMARY KEY (id);
+-- when u define a foreign key column in second table for example, 
+-- then in this column you can have primary keys present in table 1 only , if table 1 has primary keys 1 -6 u cant have a value 7 in foreign key column of second table
+-- CREATE TABLE details (
+-- 	id INT PRIMARY KEY AUTO_INCREMENT,
+--     language VARCHAR(255),
+--     publisher VARCHAR(255),
+--     book_id INT,
+--     FOREIGN KEY (book_id) REFERENCES books1 (id)
+-- );
+-- INSERT INTO details (language, publisher, book_id) VALUES('English', 'Scribner', 100);
+-- CREATE DATABASE blog;
+-- USE blog;
+-- CREATE TABLE posts (
+-- 	id INT PRIMARY KEY AUTO_INCREMENT, 
+--  title VARCHAR(255) NOT NULL UNIQUE,
+--     text TEXT NOT NULL,
+--     author VARCHAR(255) DEFAULT 'admin',
+--     date DATE NOT NULL,
+--     status ENUM('draft', 'publish', 'private') DEFAULT 'draft',
+--     likes INT DEFAULT 0,
+--     dislikes INT DEFAULT 0
+-- );
+-- SELECT CONCAT(first_name,' ',last_name) AS full_name FROM customers;
+-- SELECT LOWER (first_name) AS lower_name FROM customers;
+-- SELECT UPPER(CONCAT(first_name,' ',last_name)) AS upper_full_name FROM customers;
+-- SELECT LENGTH(TRIM(password)) AS pass_length FROM customers;
+-- SELECT REPLACE(country, 'USA', 'United States') AS country FROM customers;
+-- SELECT SUBSTRING(address,1,3) AS house_num FROM customers;
+-- find the position of the first empty space 
+-- SELECT POSITION(' ' IN address) AS space_pos FROM customers;
+-- get house numbers
+-- SELECT SUBSTRING(address, 1, POSITION(' ' IN address)-1) AS house_num FROM customers;
+-- SELECT SUBSTRING_INDEX(address,' ',1) AS house_num FROM customers; copy substring upto to the first empty space
+-- SELECT SUBSTRING_INDEX(address,' ',-1) AS house_num FROM customers; substring will be copied from last empty space upto the end of the row
+-- USE blog;
+-- SELECT UPPER(CONCAT(name, ' ', surname)) AS fullname FROM quotes;
+-- SELECT REPLACE(quote, ' ', '_') AS new_quote FROM quotes;
+-- SELECT LENGTH(REPLACE(quote, ' ', '')) AS characters FROM quotes;
+-- display first 4 words with 3 dots in the end SUBSTRING_INDEX(quote, ' ', 4) first param which column, second param we search for an empty space, 3rd parameter we search for 4th empty space
+-- SELECT CONCAT(SUBSTRING_INDEX(quote, ' ', 4), '...') AS shortQuote FROM quotes;
+-- SELECT 2 + 3 AS result;
+-- SELECT 2 - 3 AS result;
+-- SELECT 2 * 3 AS result;
+-- SELECT 2 / 3 AS result;
+-- SELECT PI() AS result;
+-- SELECT PI() * 10 * 10 AS result; 
+-- SELECT PI() * POWER(10,2) AS result; 
+-- SELECT RAND() as result; RAND() generates random numbers with 0 included and 1 excluded 
+-- what to do if we need range 0 included and number 100 excluded , just multiply ba 100
+-- SELECT RAND() * 100 as result;
+-- how to get integer random numbers above RAND() generated floats use  ROUND()
+-- SELECT ROUND(RAND()* 100)  as result;
+-- SELECT SIGN(-100) AS result; 
+-- SELECT SQRT(64) AS result; negative number will be returned with null value 
+-- USE website;
+-- ALTER TABLE customers ADD COLUMN reg_date DATE;
+-- UPDATE customers SET reg_date='2035-06-10' WHERE first_name='Liam';
+-- UPDATE customers SET reg_date=CURDATE() WHERE first_name='Lucas';
+-- ALTER TABLE customers ADD COLUMN reg_time TIME;
+-- UPDATE customers SET reg_time='14:10:00' WHERE first_name='Liam';
+-- UPDATE customers SET reg_time=CURTIME() WHERE first_name='Lucas';
+-- ALTER TABLE customers ADD COLUMN last_update DATETIME;
+-- UPDATE customers SET last_update='2035-12-10 14:10:00' WHERE first_name='Liam';
+-- UPDATE customers SET last_update=NOW() WHERE first_name='Lucas';
+-- ALTER TABLE customers ADD COLUMN last_upd_auto DATETIME DEFAULT NOW() ON UPDATE NOW();
+-- SELECT DAYNAME(reg_date) AS day, MONTHNAME(reg_date) AS month FROM customers;
+-- SELECT MONTHNAME(reg_date) AS month FROM customers;
+-- SELECT DAYNAME(NOW());
+-- SELECT DAYNAME('2049-01-01');
+-- https://dev.mysql.com/doc/refman/8.0/en/date-and-time-functions.html
+-- get date month day year separated by slash signs 
+-- SELECT DATE_FORMAT (reg_date, '%m/%d/%Y') AS date FROM customers;
+-- SELECT DATE_FORMAT (reg_date, '%M %D %Y') AS date FROM customers;
+-- SELECT phone from staff;
+-- IFNULL(expression_1, expression_2)
+-- SELECT IFNULL(phone, 'unspecified') AS phone from staff;
+-- IF(sxpression, exp_true, exp_false)
+-- SELECT name, IF (days_off > 0, 'YES','NO') AS has_day_off, days_off FROM staff;
+-- CASE exression
+-- WHEN value_1 THEN result_1
+-- WHEN value_2 THEN result_2
+-- 
+-- default_result
+-- END 
+-- SELECT 
+-- 	CASE ISO_code
+-- 		WHEN 'US' THEN 'USA'
+--      WHEN 'CA' THEN 'Canada'
+--      WHEN 'IN' THEN 'India'
+--      ELSE ISO_code
+-- 	END AS country
+-- FROM staff;
+-- CASE could be long to type so use COALESCE 
+-- COALESCE(value_1, value_2, value_3,...) if value_1 is not null then it will be displayed if value_1 is null then sql will move on to value_2
+-- SELECT name,
+-- 	COALESCE(phone, email, address, 'unspecified') AS contacts
+-- FROM staff;
+-- Subqueries - a query which is nested inside another query Outer query and we have a query nested inside called inner query or Subquery
+-- instead of usinf JOIN u can use Subquery
+-- SELECT title, IF(seasons >= (SELECT AVG(seasons) FROM series), 'Long', 'Short') AS duration FROM series;
+-- AVG(seasons) AVG fn is an aggregate function means it only returns 1 value how can we fix this with results have not only 1 row but many rows 
+-- asnwer is use a subquery (SELECT AVG(seasons) FROM series) and everything will work properly as above 
+-- when to use a sub query with select clause in most cases we use it together with aggregate functions 
+-- SELECT MAX(avg_rating) AS max_rating FROM
+-- (SELECT name, AVG(rating) AS avg_rating FROM series 
+-- 	INNER JOIN networks 
+--     ON series.network_id = networks.id 
+--     GROUP BY name) AS network_ratings;
+-- SELECT name FROM networks WHERE EXISTS (SELECT*FROM series WHERE network_id = networks.id);
+-- if there is a match between foreign key and primary key display the list
+-- SELECT name FROM networks WHERE NOT EXISTS (SELECT*FROM series WHERE network_id = networks.id);
+-- another query similar to EXISTS 
+-- SELECT name FROM networks WHERE id IN (SELECT network_id FROM series);
+-- SELECT name FROM networks WHERE id NOT IN (SELECT network_id FROM series);
+-- IN works quickly when there is not so much data 10 to 100 for 1000s of data better to use EXISTS operator 
+-- AMC series that are rated higher than any Netflix series 
+-- SELECT title FROM series WHERE network_id = 2 AND rating > ANY (SELECT rating FROM series WHERE network_id = 3);
+-- SELECT title FROM series WHERE network_id = 2 AND rating > ALL (SELECT rating FROM series WHERE network_id = 3);
+-- correlated queries 
+-- SELECT title, rating, network_id FROM series WHERE rating > (SELECT AVG(rating) FROM series); 
+-- SELECT network_id, AVG(rating) FROM series GROUP BY network_id;
+-- SELECT title, rating, network_id FROM series AS s WHERE rating > (SELECT AVG(rating) FROM series GROUP BY network_id HAVING network_id = s.network_id);
+-- as director id can repeat director can have multiple films so use in 
+-- SELECT * FROM directors WHERE id IN
+-- (SELECT director_id FROM films WHERE genre_id = (SELECT id FROM genres WHERE genre='crime'));
+-- tables resulting from views are not created in database so views are also called virtual tables 
+--  When you want to perform aggregate functions (e.g., COUNT, SUM, AVG) on a subset of data based on certain criteria. 
+-- GROUP BY allows you to apply these functions to groups of rows instead of the entire result set
+-- CREATE VIEW revenue AS 
+-- SELECT shops.name, SUM(price) AS total 
+-- FROM orders
+-- INNER JOIN shops
+-- ON orders.shop_id = shops.shop_id
+-- GROUP BY orders.shop_id
+-- ORDER BY shops.name;
+-- to update a view use CREATE OR REPLACE VIEW revenue AS 
+-- DROP VIEW revenue;
+-- store procedures 
+-- All these sql queries vary only by the date , here we can create stores procedure in such case but not view 
+-- DELIMITER $$
+-- CREATE PROCEDURE report (p_date DATE)
+-- BEGIN
+-- 	SELECT category, product, price
+-- 	FROM orders
+-- 	WHERE date = p_date
+-- 	ORDER BY price;
+-- END $$
+-- DELIMITER ;report
+-- CALL report('2035-10-24');
+-- DELIMITER $$
+-- CREATE PROCEDURE orders_by_cat (p_cat VARCHAR(255))
+-- BEGIN
+-- 	SELECT * 
+-- 		FROM orders 
+--      WHERE category = p_cat 
+--      ORDER BY price DESC;
+-- END $$
+-- DELIMITER ;
+-- CALL orders_by_cat('TV');
+-- SHOW VARIABLES;
+-- SET SESSION SQL_SAFE_UPDATES = 0; used when there are many connections to the mysql server example when several people have accwss 
+-- SET GLOBAL SQL_SAFE_UPDATES = 0; 
+-- SHOW GLOBAL VARIABLES;
+-- SET @avg_price := (SELECT AVG(price) FROM orders);
+-- SELECT * FROM orders WHERE price > @avg_price; 
+-- SET @avg_price :=0;
+--  SELECT AVG(price)
+--  INTO @avg_price
+--  FROM orders;
+--  SELECT * FROM orders WHERE price > @avg_price; 
+-- USE online_store;
+-- DROP PROCEDURE min_max;
+-- DELIMITER $$
+-- CREATE PROCEDURE min_max(
+--  	p_shop_id INT,
+-- 	OUT min_price INT,
+-- 	OUT max_price INT
+--  )
+--  BEGIN
+--  	SELECT MIN(price), MAX(price)
+-- 	INTO min_price, max_price
+-- 	FROM orders
+-- 	WHERE shop_id = p_shop_id;
+--  END $$
+--  DELIMITER ;
+-- SET @min = 0;
+-- SET @max = 0;
+
+-- CALL min_max (1, @min, @max);
+-- SELECT @min, @max;
+-- SELECT (@max - @min) AS diff;
+-- deterministic function always returns same value upon giving same value as input 
+-- non deterministic function returns different values every time its called even when the same input values are provided 
+-- SELECT * FROM orders;
+-- ALTER TABLE orders ADD COLUMN quantity INT;
+-- UPDATE orders SET quantity = 7 WHERE id = 2;
+-- UPDATE orders SET quantity = 4 WHERE id = 3;
+-- UPDATE orders SET quantity = 1 WHERE id = 4;
+-- DELIMITER $$
+-- CREATE FUNCTION total_price()
+-- RETURNS DOUBLE
+-- DETERMINISTIC
+-- BEGIN
+-- 	DECLARE total DOUBLE;
+--  SELECT SUM(price*quantity)
+--  INTO total
+--  FROM orders;
+--  RETURN total;
+-- END $$
+-- DELIMITER ;
+-- SELECT total_price() AS total;
+-- DELIMITER $$
+-- CREATE FUNCTION total_price_for_id(p_shop_id INT)
+-- RETURNS DOUBLE
+-- DETERMINISTIC
+-- BEGIN
+-- 	DECLARE total DOUBLE;
+-- 	SELECT SUM(price*quantity)
+-- 	INTO total
+-- 	FROM orders
+--  WHERE shop_id = p_shop_id;
+-- 	RETURN total;
+-- END $$
+-- DELIMITER ;
+-- SELECT total_price_for_id(2);
+-- DROP FUNCTION total_price_for_id;
+--  SELECT COUNT(*) means count all
+--  DELIMITER $$
+--  CREATE FUNCTION count_by_cat_and_date(p_cat VARCHAR(255), p_date DATE)
+--  RETURNS INT
+--  DETERMINISTIC
+--  BEGIN
+-- DECLARE count INT;
+-- SELECT COUNT(*)
+--     INTO count
+--     FROM orders
+--     WHERE category = p_cat AND date = p_date;
+--     RETURN count;
+-- END $$
+-- DELIMITER ;
+-- SELECT count_by_cat_and_date('TV', '2035-10-24');
+-- Triggers
+-- USE online_store;
+-- SELECT * FROM shops;
+-- ALTER TABLE shops ADD COLUMN total DOUBLE;
+-- SET SQL_SAFE_UPDATES = 0;
+-- UPDATE shops SET total = (SELECT SUM(price) FROM orders WHERE shop_id = 2) WHERE shop_id = 2;
+-- DELIMITER $$
+-- CREATE TRIGGER orders_after_insert
+-- 	AFTER INSERT ON orders
+--     FOR EACH ROW
+--     BEGIN
+-- 		UPDATE shops
+--      SET total = total + NEW.price
+--      WHERE shop_id = NEW.shop_id;
+--     END $$
+-- DELIMITER ;
+-- INSERT INTO orders (id, category, product, price, shop_id)
+-- 	VALUES (5, 'Smartphone', 'Samsung Galaxy S20', 1000, 2);
+-- DELIMITER $$
+-- CREATE TRIGGER orders_after_delete
+-- AFTER DELETE ON orders
+-- FOR EACH ROW
+-- BEGIN
+-- 	UPDATE shops
+-- 		SET total = total - OLD.price
+--       WHERE shop_id = OLD.shop_id;
+-- END $$
+-- DELIMITER ;
+-- DELETE FROM orders WHERE id = 5;
+-- SHOW TRIGGERS;
+-- DROP TRIGGER orders_after_delete;
+-- INDEXES increase the speed 
+-- SELECT * FROM reviews WHERE date > '2035-10-25'
+-- open google chrome type in free datasets 
+-- CREATE DATABASE super_db;
+-- USE super_db;
+-- CREATE TABLE staff (
+-- 	First_name VARCHAR(255), 
+--     Last_name VARCHAR(255), 
+--     Department VARCHAR(50), 
+--     Identifier INT, 
+--     Location VARCHAR(255)
+-- );
+-- SELECT * FROM staff;
+-- select code and press two keys simultaneously 
+
+
